@@ -126,7 +126,24 @@ class InfoMix(Info):                                                            
 class StatsMix(MutableComposite, Stats):                                                             #
                                                                                                      #
     def __composite_values__(self):                                                                  #
-        return self.total_likes_count, self.total_comments_count                                     #
+        return self.total_likes_count, self.total_comments_count
+
+    def __setattr__(self, key, value):
+        "Intercept set events"
+
+        # set the attribute
+        object.__setattr__(self, key, value)
+
+        # alert all parents to the change
+        self.changed()
+
+    def __eq__(self, other):
+        return isinstance(other, StatsMix) and \
+               other.total_likes_count == self.total_likes_count and \
+               other.total_comments_count == self.total_comments_count
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
                                                                                                      #
                                                                                                      #
 topics_mapper = mapper_registry.map_imperatively(Topic, topics)                                      #
