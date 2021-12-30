@@ -6,7 +6,7 @@ from sqlalchemy import Column, Table, Integer, String, MetaData, ForeignKey, cre
 from sqlalchemy.ext.mutable import MutableComposite
 
 
-# path => src/collaboration/domain/model/value_objects/topic.py ####
+# path => src/collaboration/domain/model/value_objects/info.py ####
 @dataclass                                                        #
 class Info:                                                       #
     title: str                                                    #
